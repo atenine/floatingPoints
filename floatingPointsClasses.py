@@ -14,11 +14,13 @@ class Particle:
         self.yvel = 0.0
         self.xvel = 0.0
 
-    def step(self, wind, fallspeed=-1):
+    def step(self, wind, fallspeed=-1.0, decay=1.0):
         """
         "Nudges" the falling particle in a certain direction, given by wind in
         format [y, x] and by fallspeed (negative is down)
         """
+        self.xvel *= decay
+
         pos = (self.x, self.y)
         dx = self.getWindAt(pos, wind)
 
@@ -31,8 +33,17 @@ class Particle:
     def constrain(self, screenSize):
         # screenSize is of format [y, x]
 
-        if self.x >= screenSize[0] or self.x <= 0:
-            self.y = -1
+        if self.x >= screenSize[1]:
+            # ends the current particle's path
+            # self.y = -1
+            self.x = screenSize[1] - 10
+            self.xvel = -1.5 * self.xvel
+
+        elif self.x < 0:
+            # ends the current particle's path
+            # self.y = -1
+            self.x = 10
+            self.xvel = -1.5 * self.xvel
 
     def getWindAt(self, pos, wind):
         """
