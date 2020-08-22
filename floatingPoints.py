@@ -1,4 +1,4 @@
-from fallingPointsClasses import windMatrix, Particle
+from floatingPointsClasses import windMatrix, Particle
 import random
 import math
 import numpy as np
@@ -9,8 +9,8 @@ def main():
     seed = 7  # also used for pnoise2
     random.seed(seed)
 
-    x = 1000
-    y = 1000
+    x = 3000
+    y = 3000
     size = (x, y)
 
     numPts = 300
